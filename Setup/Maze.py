@@ -1,6 +1,5 @@
 import numpy as np
 from Box2D import b2BodyDef, b2_staticBody, b2World, b2_dynamicBody, b2FixtureDef, b2CircleShape, b2Vec2
-from Setup.MazeFunctions import BoxIt
 from scipy.spatial import cKDTree
 from pandas import read_excel
 from directories import maze_dimension_directory
@@ -8,6 +7,54 @@ from PhysicsEngine.drawables import Polygon, Point, Circle, colors
 from os import path
 from trajectory.exp_types import is_exp_valid, centerOfMass_shift, ASSYMETRIC_H_SHIFT
 from trajectory.exp_types import ResizeFactors
+
+
+def BoxIt(corners, stepSize, **kwargs):  # corners go from left bottom, to left top, to right top, to right bottom
+    corners = np.array(corners)
+    TwoBottom = corners[corners[:, 1].argsort()][0:2]
+    TwoTop = corners[corners[:, 1].argsort()][2:4]
+
+    corners = np.vstack([TwoBottom[TwoBottom[:, 0].argsort()][0],
+                         TwoTop[TwoTop[:, 0].argsort()][0],
+                         TwoTop[TwoTop[:, 0].argsort()][1],
+                         TwoBottom[TwoBottom[:, 0].argsort()][1]])
+
+    y_Num = int(abs(corners[0][1] - corners[1][1]) / stepSize)
+    x_Num = int(abs(corners[2][0] - corners[0][0]) / stepSize)
+
+    bottom = np.transpose(np.vstack((np.linspace(corners[0][0],
+                                                 corners[3][0],
+                                                 num=x_Num),
+                                     np.linspace(corners[0][1],
+                                                 corners[3][1],
+                                                 num=x_Num))))
+
+    upper = np.transpose(np.vstack((np.linspace(corners[1][0],
+                                                corners[2][0],
+                                                num=x_Num),
+                                    np.linspace(corners[1][1],
+                                                corners[2][1],
+                                                num=x_Num),)))
+
+    left = np.transpose(np.vstack((np.linspace(corners[0][0],
+                                               corners[1][0],
+                                               num=y_Num),
+                                   np.linspace(corners[0][1],
+                                               corners[1][1],
+                                               num=y_Num))))
+
+    right = np.transpose(np.vstack((np.linspace(corners[3][0],
+                                                corners[2][0],
+                                                num=y_Num),
+                                    np.linspace(corners[3][1],
+                                                corners[2][1],
+                                                num=y_Num))))
+
+    if kwargs.get('without') is not None:
+        kwargs['without'] = np.array([0, 0])
+        return np.vstack((bottom, upper, left))
+
+    return np.vstack((bottom, upper, right, left))
 
 
 class Maze_parent(b2World):

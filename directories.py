@@ -23,16 +23,6 @@ excel_sheet_directory = path.join(path.sep + path.sep + 'phys-guru-cs', 'ants', 
 lists_exp_dir = path.join(data_home, 'DataFrame', 'excel_experiment_lists')
 
 
-
-
-contacts_dir = path.join(data_home, 'Contacts', 'ant')
-df_sim_dir = path.join(data_home, 'DataFrame', 'data_frame_sim.json')
-df_minimal_dir = path.join(data_home, 'DataFrame', 'data_frame_minimal.json')
-
-
-if not path.exists(video_directory):
-    mkdir(video_directory)
-
 original_movies_dir_ant = [
     '{0}{1}phys-guru-cs{2}ants{3}Tabea{4}Videos'.format(path.sep, path.sep, path.sep, path.sep, path.sep),
     '{0}{1}phys-guru-cs{2}ants{3}Lena{4}Movies'.format(path.sep, path.sep, path.sep, path.sep, path.sep),
@@ -58,6 +48,7 @@ trackedPheidoleMovieDirectory = '{0}{1}phys-guru-cs{2}ants{3}Aviram{4}Pheidole S
 trackedHumanMovieDirectory = path.join(excel_sheet_directory, 'Output')
 trackedHumanHandMovieDirectory = 'C:\\Users\\tabea\\PycharmProjects\\ImageAnalysis\\Results\\Data'  # TODO
 
+
 def MatlabFolder(solver, size, shape, free=False):
     if solver == 'ant':
         shape_folder_naming = {'LASH': 'Asymmetric H', 'RASH': 'Asymmetric H', 'ASH': 'Asymmetric H',
@@ -79,16 +70,6 @@ def MatlabFolder(solver, size, shape, free=False):
 
     else:
         print('MatlabFolder: who is solver?')
-
-
-
-''' ANALYSIS '''
-averageCarrierNumber_dir = path.join(home, 'Analysis', 'average_carrier_number', 'averageCarrierNumber.json')
-minimal_path_length_dir = path.join(home, 'Analysis', 'minimal_path_length', 'minimal_path_length.json')
-first_frame_dir = path.join(home, 'Analysis', 'first_frame.json')
-path_length_dir = path.join(home, 'Analysis', 'Efficiency', 'path_length.json')
-penalized_path_length_dir = path.join(home, 'Analysis', 'Efficiency', 'penalized_path_length.json')
-
 
 
 def NewFileName(old_filename: str, solver: str, size: str, shape: str, expORsim: str) -> str:
