@@ -1,0 +1,11 @@
+/ConfigSpace/time_series_human.json
+.idea/
+Analysis/__pycache__/
+ConfigSpace/__pycache__/
+ConfigSpace/time_series_human.json
+PhysicsEngine/__pycache__/
+Setup/__pycache__/
+Videos/
+__pycache__/
+trajectory/__pycache__/
+
