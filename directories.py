@@ -1,4 +1,4 @@
-from os import path, mkdir
+from os import path
 
 # home = 'C:\\Users\\tabea\\PycharmProjects\\Puzzle_collective_transport\\'
 home = path.join(path.abspath(__file__).split('\\')[0] + path.sep, *path.abspath(__file__).split(path.sep)[1:-1])
