@@ -4,6 +4,7 @@ from os import path
 home = path.join(path.abspath(__file__).split('\\')[0] + path.sep, *path.abspath(__file__).split(path.sep)[1:-1])
 # data_home = '\\\\phys-guru-cs\\ants\\Tabea\\PyCharm_Data\\AntsShapes\\'
 data_home = path.join(path.sep + path.sep + 'phys-guru-cs', 'ants', 'Tabea', 'PyCharm_Data', 'AntsShapes')
+directory_results = path.join(home, 'Results')
 
 network_dir = path.join(data_home, 'Time_Series')
 # ConfSpace_Directory = path.join(data_home, 'Configuration_Spaces')
@@ -15,7 +16,7 @@ dirs_exp_trajs = {'ant': path.join(mini_work_dir, 'Ant_Trajectories'),
                   'pheidole': path.join(mini_work_dir, 'Pheidole_Trajectories'),
                   'human': path.join(mini_work_dir, 'Human_Trajectories'),
                   'humanhand': path.join(mini_work_dir, 'HumanHand_Trajectories'),
-                  'gillespie': path.join(mini_work_dir, 'Gillespie_Trajectories')}
+                  'gillespie': path.join(directory_results)}
 df_dir = path.join(home, 'lists_of_experiments', 'data_frame.xlsx')
 video_directory = path.join(home, 'Videos')
 maze_dimension_directory = path.join(home, 'Setup')
@@ -52,7 +53,7 @@ trackedHumanHandMovieDirectory = 'C:\\Users\\tabea\\PycharmProjects\\ImageAnalys
 def MatlabFolder(solver, size, shape, free=False):
     if solver == 'ant':
         shape_folder_naming = {'LASH': 'Asymmetric H', 'RASH': 'Asymmetric H', 'ASH': 'Asymmetric H',
-                               'H': 'H', 'I': 'I', 'LongT': 'Long T',
+                               'H': 'H', 'I': 'I', 'LongT': 'Long T', 'LongI': 'Long I',
                                'SPT': 'Special T', 'T': 'T'}
         if not free:
             return path.join(trackedAntMovieDirectory, 'Slitted', shape_folder_naming[shape], size, 'Output Data')

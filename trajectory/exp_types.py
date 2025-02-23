@@ -6,7 +6,7 @@ centerOfMass_shift = - 0.08  # shift of the center of mass away from the center 
 ASSYMETRIC_H_SHIFT = 1.22 * 2
 SPT_ratio = 2.44 / 4.82
 ant_dimensions = ['ant', 'ps_simulation', 'sim', 'gillespie']  # also in Maze.py
-load_periodicity = {'H': 2, 'I': 2, 'RASH': 2, 'LASH': 2, 'SPT': 1, 'T': 1}
+load_periodicity = {'H': 2, 'I': 2, 'LongI': 2, 'RASH': 2, 'LASH': 2, 'SPT': 1, 'T': 1}
 
 average_radius_SPT = {'ant': {'S': 0.921492, 'S (> 1)': 0.921492, 'Single (1)': 0.921492, 'M': 1.842981,
                               'L': 3.662930, 'XL': 7.295145},
@@ -31,6 +31,7 @@ exit_size_HIT = {'XL': 4.9, 'SL': 3.675, 'L': 2.45, 'M': 1.225, 'S': 0.6125, 'S 
 def average_radii_HIT(size, shape):
     return {'H': 2.9939 * ResizeFactors['ant'][size],
             'I': 2.3292 * ResizeFactors['ant'][size],
+            'LongI': 2.3292 * ResizeFactors['ant'][size],
             'T': 2.9547 * ResizeFactors['ant'][size],
             }[shape]
 
@@ -40,10 +41,16 @@ exp_types = {'SPT': {'ant': ['XL', 'L', 'M', 'S'],
                      'human': ['Large', 'Medium', 'Small Far', 'Small Near'],
                      'ps_simulation': ['XL', 'L', 'M', 'S', 'Large', 'Medium', 'Small Far', 'Small Near', ''],
                      'humanhand': [''],
-                     'gillespie': ['XL', 'L', 'M', 'S', 'XS']},
-             'H': {'ant': ['XL', 'SL', 'L', 'M', 'S', 'XS']},
-             'I': {'ant': ['XL', 'SL', 'L', 'M', 'S', 'XS']},
-             'T': {'ant': ['XL', 'SL', 'L', 'M', 'S', 'XS']}}
+                     'gillespie': ['XL', 'L', 'M', 'S', 'XS'],
+                     'sim': ['XL', 'L', 'M', 'S', 'XS']},
+             'H': {'ant': ['XL', 'SL', 'L', 'M', 'S', 'XS'],
+                   'gillespie': ['XL', 'L', 'M', 'S', 'XS']},
+             'I': {'ant': ['XL', 'SL', 'L', 'M', 'S', 'XS'],
+                   'gillespie': ['XL', 'L', 'M', 'S', 'XS']},
+             'LongI': {'ant': ['XL', 'SL', 'L', 'M', 'S', 'XS'],
+                   'gillespie': ['XL', 'L', 'M', 'S', 'XS']},
+             'T': {'ant': ['XL', 'SL', 'L', 'M', 'S', 'XS'],
+                   'gillespie': ['XL', 'L', 'M', 'S', 'XS']}}
 
 solver_geometry = {'ant': ('MazeDimensions_new2021_SPT_ant.xlsx', 'LoadDimensions_new2021_SPT_ant.xlsx'),
                    'human': ('MazeDimensions_human.xlsx', 'LoadDimensions_human.xlsx'),

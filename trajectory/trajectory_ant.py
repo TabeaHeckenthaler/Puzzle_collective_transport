@@ -104,7 +104,7 @@ class Trajectory_ant(Trajectory):
 
     def matlabFolder(self):
         shape_folder_naming = {'LASH': 'Asymmetric H', 'RASH': 'Asymmetric H', 'ASH': 'Asymmetric H',
-                               'H': 'H', 'I': 'I', 'LongT': 'Long T',
+                               'H': 'H', 'I': 'I', 'LongT': 'Long T', 'LongI': 'Long I',
                                'SPT': 'Special T', 'T': 'T'}
         if self.solver == 'pheidole':
             return trackedPheidoleMovieDirectory + path.sep + self.size + path.sep + 'Output Data'

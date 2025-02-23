@@ -137,6 +137,9 @@ class Display:
                 kwargs = {'scale_factor': self.scale_factor}
             self.cs.draw(x.position[self.i:self.i + 1], x.angle[self.i:self.i + 1], **kwargs)
 
+        if hasattr(x, 'numCorner_with_force'):
+            x.draw_force(self.my_maze, self)
+
         if hasattr(x, 'participants'):
             if hasattr(x.participants, 'forces'):
                 x.participants.forces.draw(self, x)

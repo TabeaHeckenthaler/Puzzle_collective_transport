@@ -21,6 +21,7 @@ from directories import dirs_exp_trajs, lists_exp_dir, work_dir
 from Setup.Maze import Maze
 from trajectory.exp_types import load_periodicity
 from PhysicsEngine.Display import Display
+from directories import directory_results
 
 
 """ Making Directory Structure """
@@ -332,11 +333,12 @@ class Trajectory:
         return new
 
     def geometry(self):
-        from DataFrame.import_excel_dfs import df_all, df_minimal
-        if len(df_all[df_all['filename'] == self.filename]) == 0:
-            if self.solver == 'ant':
-                return solver_geometry[self.solver]
-        return df_minimal[df_minimal['filename'] == self.filename].iloc[0][['maze dimensions', 'load dimensions']].tolist()
+        raise NotImplementedError
+        # from DataFrame.import_excel_dfs import df_all, df_minimal
+        # if len(df_all[df_all['filename'] == self.filename]) == 0:
+        #     if self.solver == 'ant':
+        #         return solver_geometry[self.solver]
+        # return df_minimal[df_minimal['filename'] == self.filename].iloc[0][['maze dimensions', 'load dimensions']].tolist()
 
     def save(self, address=None) -> None:
         """
@@ -345,27 +347,27 @@ class Trajectory:
         in the class and then am incapable of unpickling my files.
         """
         self.check()
-        dir = SaverDirectories[self.solver]
+        dir = directory_results
         if self.solver == 'ant' and self.free:
             path.join(work_dir, 'Ant_Trajectories', 'Free')
 
         if address is None:
             address = dir + path.sep + self.filename
 
-        with open(address, 'wb') as f:
-            try:
-                self_copy = deepcopy(self)
-                if hasattr(self_copy, 'participants'):
-                    delattr(self_copy, 'participants')
-                pickle.dump(self_copy, f)
-                print('Saving ' + self_copy.filename + ' in ' + address)
-            except pickle.PicklingError as e:
-                print(e)
+        # with open(address, 'wb') as f:
+        #     try:
+        #         self_copy = deepcopy(self)
+        #         if hasattr(self_copy, 'participants'):
+        #             delattr(self_copy, 'participants')
+        #         pickle.dump(self_copy, f)
+        #         print('Saving ' + self_copy.filename + ' in ' + address)
+        #     except pickle.PicklingError as e:
+        #         print(e)
 
         print('Saving minimal', self.filename, ' in path: ', dirs_exp_trajs[self.solver])
         pickle.dump((self.shape, self.size, self.solver, self.filename, self.fps,
                      self.position, self.angle, self.frames, self.winner),
-                    open(dirs_exp_trajs[self.solver] + path.sep + self.filename, 'wb'))
+                    open(address, 'wb'))
 
     def stretch(self, frame_number: int) -> None:
         """

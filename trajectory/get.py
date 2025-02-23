@@ -1,4 +1,4 @@
-from directories import dir_gillespie_trajs, mini_work_dir, df_dir
+from directories import dir_gillespie_trajs, mini_work_dir, df_dir, directory_results
 import os
 import pickle
 import numpy as np
@@ -53,6 +53,18 @@ def get(filename):
     """
     traj = None
     # first check if the file is in the gillespie directory
+    for root, dirs, files in os.walk(directory_results):
+        for dir in dirs:
+            if filename in os.listdir(os.path.join(root, dir)):
+                address = os.path.join(root, dir, filename)
+                with open(address, 'rb') as f:
+                    file = pickle.load(f)
+                shape, size, solver, filename, fps, position, angle, linVel, angVel, frames, winner = file
+                traj = Trajectory_gillespie(shape=shape, size=size, filename=address.split('\\')[-1],
+                                            position=position, angle=angle % (2 * np.pi),
+                                            frames=frames, winner=winner, fps=fps)
+                return traj
+
     if filename.startswith('sim'):
         address = find_simulation_address(filename)
         with open(address, 'rb') as f:

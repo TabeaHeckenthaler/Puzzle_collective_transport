@@ -141,7 +141,7 @@ class Maze_parent(b2World):
                 density=1, friction=0, restitution=0,
             )
 
-        if self.shape == 'I':
+        if self.shape in ['I', 'LongI']:
             [shape_height, _, shape_thickness] = self.getLoadDim()
             my_load.CreatePolygonFixture(vertices=[
                 (shape_height / 2, -shape_thickness / 2),
@@ -413,6 +413,7 @@ class Maze_parent(b2World):
         r = ResizeFactors[self.solver][self.size]
         radii = {'H': 2.9939 * r,
                  'I': 2.3292 * r,
+                 'LongI': 5 * r,
                  'T': 2.9547 * r,
                  'SPT': 0.76791 * self.getLoadDim()[1],
                  'RASH': 2 * 1.6671 * r,
@@ -430,6 +431,7 @@ class Maze_parent(b2World):
 
         cir = {'H': 4 * shape_height - 2 * shape_thickness + 2 * shape_width,
                'I': 2 * shape_height + 2 * shape_width,
+               'LongI': 2 * shape_height + 2 * shape_width,
                'T': 2 * shape_height + 2 * shape_width,
                'SPT': 2 * shape_height_short_edge + 2 * shape_height - 2 * shape_thickness + 2 * shape_width,
                'RASH': 2 * shape_width + 4 * shape_height - 4 * shift - 2 * shape_thickness,
@@ -650,9 +652,14 @@ class Maze_free_space(Maze_parent):
 
 
 if __name__ == '__main__':
-    maze = Maze(size='Large', shape='SPT', solver='human',
-                geometry=('MazeDimensions_human.xlsx', 'LoadDimensions_human.xlsx'))
+    maze = Maze(size='XL', shape='H', solver='ant',
+                geometry=('MazeDimensions_ant.xlsx', 'LoadDimensions_ant.xlsx'))
+    maze.getLoadDim()
+    maze.average_radius()
+
     maze.draw()
+
+
 
     # pause for 10 seconds
     import time

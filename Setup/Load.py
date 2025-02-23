@@ -46,7 +46,7 @@ def corners_phis(my_maze):
         phis = np.array([0, -np.pi / 2, np.pi, np.pi / 2, 0, np.pi / 2,
                          np.pi, np.pi / 2, 0, -np.pi / 2, np.pi, -np.pi / 2])
 
-    elif my_maze.shape == 'I':
+    elif my_maze.shape in ['I', 'LongI']:
         [shape_height, _, shape_thickness] = my_maze.getLoadDim()
         corners = np.array([[-shape_height / 2, -shape_thickness / 2],
                             [-shape_height / 2, shape_thickness / 2],
@@ -94,7 +94,8 @@ def corners_phis(my_maze):
     return corners, phis
 
 
-def init_sites(my_maze, n: int, radius=1):
+
+def init_sites(my_maze, n: int, radius=1, randonmize=True):
     """
 
     :param my_maze: b2World
@@ -124,9 +125,12 @@ def init_sites(my_maze, n: int, radius=1):
         i = 1
         delta = my_maze.circumference() / n
         step_size = delta
-        sites = np.array([linear_combination(np.random.uniform(0, 1), corners[0], corners[1])])
+        if randonmize:
+            sites = np.array([linear_combination(np.random.uniform(0, 1), corners[0], corners[1])])
+        else:
+            sites = np.array(corners[0])
         phi_default = np.array([phis[0]])
-        start = sites[-1]
+        start = sites
         aim = corners[1]
 
         while sites.shape[0] < n:

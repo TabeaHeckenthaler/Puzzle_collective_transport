@@ -15,7 +15,8 @@ colors = {'maze': (0, 0, 0),
           'puller': (0, 250, 0),
           'lifter': (0, 250, 0),
           'empty': (0, 0, 0),
-          'bias': (51, 255, 51)  # blue
+          'bias': (51, 255, 51),  # blue
+          'in_slit': (0, 250, 0)
           }
 
 
